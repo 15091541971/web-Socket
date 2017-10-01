@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+var ws = null;
+function f(){
+	
+	 if ('WebSocket' in window) {
+         ws = new WebSocket('ws://localhost:8089/WebSocket/websocket/talk');
+         alert("浏览器支持webSocket功能")
+     } else if ('MozWebSocket' in window) {
+         ws = new MozWebSocket(target);
+         alert("浏览器支持webSocket共能")
+     } else {
+         alert('WebSocket is not supported by this browser.');
+         return;
+     }
+	 ws.onopen = function () {
+        
+         console.log('Info: WebSocket connection opened.');
+     };
+     ws.onmessage = function (event) {
+         console.log('Received: ' + event.data);
+     };
+     ws.onclose = function (event) {
+        
+         console.log('Info: WebSocket connection closed, Code: ' );
+     };
+	/*  */
+	
+	console.log(JSON.stringify(ws))
+}
+function send(){
+	ws.send("fdffgg");
+}
+function close(){
+	console.log("关闭")
+/* 	ws.close(); */
+}
+</script>
+</head>
+<body>
+<input type="button" id="bt" value="链接" onclick="f()"><br><input type="button" id="tb2" onclick="send()" value="发送"><br>
+<input type="button" value="关闭" onclick="close()">
+</body>
+</html>
